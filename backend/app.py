@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, jsonify, request, session, Response, render_template
+from flask import Flask, jsonify, request, session, Response, render_template, redirect
 from werkzeug.utils import secure_filename
 # from bson import json, json_util
 from flask_restx import Resource, Api, fields, reqparse
 from flask_cors import CORS
+from kakaokey import KAKAO_KEY 
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='KB API',
@@ -33,53 +34,16 @@ class login(Resource):
     @ns.response(400, 'Bad Request')
     @ns.response(403, "해당 아이디가 없습니다\n 비밀번호가 틀렸습니다")
     
-    def get(self):
-        return render_template('login.html')
+    # def get(self):
+    #     return render_template('login.html')
 
     def post(self):
-
-        login_user = request.json
-        id = login_user['id']
-
-        password = login_user['password']
-
-        result = user.find_one({"id": id})  # user table에서 일치하는 아이디 검색
-        if result is None:  # 일치하는 아이디가 없음
-            data = {
-                "message": "해당 아이디가 없습니다",
-            }
-            response = jsonify(data)
-            response.status_code = 403
-            return response
-
-        if result and bcrypt.checkpw(password.encode('utf-8'), result['password'].decode("utf8").encode('utf-8')):
-            id = result['id']
-            payload = {
-                'id': id
-            }
-            token = jwt.encode(payload, SECRET_KEY, ALGORITHM)  # 토큰 생성(인코딩)
-            token = jwt.decode(token, SECRET_KEY, ALGORITHM)  # 토큰 디코팅
-
-            session['id'] = login_user['id']
-
-            data = {
-                "success": True,
-                "message": "로그인 성공",
-                "accessToken": token['id'],
-                "user_id": login_user['id']
-            }
-            response = jsonify(data)
-            response.status_code = 201
-            response.set_cookie('jwt', token['id'])
-            return response
-
-        else:
-            data = {
-                "message": "비밀번호가 틀렸습니다",
-            }
-            response = jsonify(data)
-            response.status_code = 403
-            return response
+        client_id = KAKAO_KEY
+        redirect_uri = "http://127.0.0.1:5000/account"
+        return redirect(
+            f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
+        )
+        
 
 
 # app.run(host='0.0.0.0',debug=True)

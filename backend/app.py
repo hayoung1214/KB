@@ -17,6 +17,7 @@ ns2 = api.namespace('api/v1/message', description='message 관련 API 목록')
 CORS(app, supports_credentials=True)
 
 login_parser = ns.parser()
+logout_parser = ns.parser()
 mupload_parser = ns2.parser()
 mshow_parser = ns2.parser()
 
@@ -25,12 +26,6 @@ mshow_parser = ns2.parser()
 @ns.route('/login')
 class login(Resource):
 
-    login_parser.add_argument(
-        'id', required=True, location='json', type=str, help='아이디')
-    login_parser.add_argument(
-        'password', required=True, location='json', type=str, help="비밀번호")
-
-    @ns.expect(login_parser)
     @ns.response(201, '로그인 성공')
     @ns.response(400, 'Bad Request')
     @ns.response(403, "해당 아이디가 없습니다\n 비밀번호가 틀렸습니다")
@@ -49,15 +44,10 @@ class login(Resource):
 @ns.route('/account')
 class login_token(Resource):
 
-    login_parser.add_argument(
-        'id', required=True, location='json', type=str, help='아이디')
-    login_parser.add_argument(
-        'password', required=True, location='json', type=str, help="비밀번호")
-
     @ns.expect(login_parser)
-    @ns.response(201, '로그인 성공')
+    @ns.response(201, '카카오 연결 로그인 성공')
     @ns.response(400, 'Bad Request')
-    @ns.response(403, "해당 아이디가 없습니다\n 비밀번호가 틀렸습니다")
+   
 
     def get(self):
         
@@ -111,18 +101,18 @@ class login_token(Resource):
             response.status_code = 400
             return response
         
+
 @ns.route('/logout')
 class logout(Resource):
 
-    login_parser.add_argument(
-        'id', required=True, location='json', type=str, help='아이디')
-    login_parser.add_argument(
-        'password', required=True, location='json', type=str, help="비밀번호")
+    logout_parser.add_argument(
+        'access_token', required=True, location='json', type=str, help='엑세스 토큰')
+    
 
-    @ns.expect(login_parser)
-    @ns.response(201, '로그인 성공')
+    @ns.expect(logout_parser)
+    @ns.response(201, '로그아웃 성공')
     @ns.response(400, 'Bad Request')
-    @ns.response(403, "해당 아이디가 없습니다\n 비밀번호가 틀렸습니다")
+    
     
    
     def post(self):

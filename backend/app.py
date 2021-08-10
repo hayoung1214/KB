@@ -26,12 +26,8 @@ mshow_parser = ns2.parser()
 @ns.route('/login')
 class login(Resource):
 
-    @ns.response(201, '로그인 성공')
-    @ns.response(400, 'Bad Request')
-    @ns.response(403, "해당 아이디가 없습니다\n 비밀번호가 틀렸습니다")
-    
-    # def get(self):
-    #     return render_template('login.html')
+    def get(self):
+        return render_template('login.html')
 
     def post(self):
         client_id = KAKAO_KEY
@@ -39,7 +35,7 @@ class login(Resource):
         return redirect(
             f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
         )
-        
+    
 
 @ns.route('/account')
 class login_token(Resource):
@@ -83,7 +79,9 @@ class login_token(Resource):
             }   
             response = jsonify(data)
             response.status_code = 200
-            return response
+            return redirect(
+                "http://127.0.0.1:5000/api/v1/user/main"
+            )
         except KeyError:
             data = {
                     "message": "INVALID_TOKEN"
@@ -132,6 +130,15 @@ class logout(Resource):
         response = jsonify(data)
         response.status_code = 200
         return response
+
+@ns.route('/main')
+class main(Resource):
+
+    def get(self):
+        return render_template('main.html')
+
+   
+        
 
 # app.run(host='0.0.0.0',debug=True)
 if __name__ == "__main__":

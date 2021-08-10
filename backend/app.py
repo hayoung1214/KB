@@ -143,7 +143,7 @@ class main(Resource):
 class message(Resource):
 
     mupload_parser.add_argument(
-        'image', type=FileStorage, required=True, location='files', help="문제 이미지")
+        'message', type=str, required=True, location='json', help="확인하고자하는 메세지")
 
     @ns2.expect(mupload_parser)
     @ns2.response(201, '메세지 등록 성공')
@@ -167,19 +167,8 @@ class message(Resource):
 
         msg = args['message']
 
-        if not os.path.exists('upload'):
-            os.makedirs('upload')
-
-        messagefilename = id + ".jpeg"  # 서버 디렉토리에 저장하는 과정 (혹시 몰라서 추가)
-        msg.save('./upload/{0}'.format(secure_filename(messagefilename)))
-        messageupload = open(
-            './upload/{0}'.format(secure_filename(messagefilename)), 'rb')
-
-        messagefilename = "upload/" + id + "_" + \
-            str(datetime.datetime.now())+".jpeg"
-        messagefilename.replace(" ", "")
-
         
+        print(msg)
         
         data = {
             "success": True,

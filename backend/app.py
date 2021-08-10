@@ -6,7 +6,8 @@ from werkzeug.utils import secure_filename
 from flask_restx import Resource, Api, fields, reqparse
 from flask_cors import CORS
 from kakaokey import KAKAO_KEY 
-import requests
+import requests, os, datetime
+from werkzeug.datastructures import FileStorage
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='KB API',
@@ -38,7 +39,7 @@ class login(Resource):
     
 
 @ns.route('/account')
-class login_token(Resource):
+class account(Resource):
 
     @ns.expect(login_parser)
     @ns.response(201, '카카오 연결 로그인 성공')
@@ -137,7 +138,60 @@ class main(Resource):
     def get(self):
         return render_template('main.html')
 
-   
+
+@ns2.route('/upload')
+class message(Resource):
+
+    mupload_parser.add_argument(
+        'image', type=FileStorage, required=True, location='files', help="문제 이미지")
+
+    @ns2.expect(mupload_parser)
+    @ns2.response(201, '메세지 등록 성공')
+    @ns2.response(400, 'Bad Request')
+    @ns2.response(401, '로그인 필요')
+
+    def post(self):
+
+        args = mupload_parser.parse_args()
+        # id = request.cookies.get('jwt')
+
+        # result = user.find_one({"id": id})  # user table에서 일치하는 아이디 검색
+
+        # if result is None:  # 일치하는 아이디가 없음
+        #     data = {
+        #         "message": "로그인 필요"
+        #     }
+        #     response = jsonify(data)
+        #     response.status_code = 401
+        #     return response
+
+        msg = args['message']
+
+        if not os.path.exists('upload'):
+            os.makedirs('upload')
+
+        messagefilename = id + ".jpeg"  # 서버 디렉토리에 저장하는 과정 (혹시 몰라서 추가)
+        msg.save('./upload/{0}'.format(secure_filename(messagefilename)))
+        messageupload = open(
+            './upload/{0}'.format(secure_filename(messagefilename)), 'rb')
+
+        messagefilename = "upload/" + id + "_" + \
+            str(datetime.datetime.now())+".jpeg"
+        messagefilename.replace(" ", "")
+
+        
+        
+        data = {
+            "success": True,
+            "message": "메세지 등록 성공",
+        }
+        # 결과 확인 필요 없을 때 주석 풀고 써주기 (result/ 폴더 삭제해주는 기능)
+        #shutil.rmtree('./result/')
+
+        response = jsonify(data)
+        response.status_code = 201
+        return response
+
         
 
 # app.run(host='0.0.0.0',debug=True)

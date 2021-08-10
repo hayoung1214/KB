@@ -111,7 +111,37 @@ class login_token(Resource):
             response.status_code = 400
             return response
         
+@ns.route('/logout')
+class logout(Resource):
 
+    login_parser.add_argument(
+        'id', required=True, location='json', type=str, help='아이디')
+    login_parser.add_argument(
+        'password', required=True, location='json', type=str, help="비밀번호")
+
+    @ns.expect(login_parser)
+    @ns.response(201, '로그인 성공')
+    @ns.response(400, 'Bad Request')
+    @ns.response(403, "해당 아이디가 없습니다\n 비밀번호가 틀렸습니다")
+    
+   
+    def post(self):
+        access_token = request.headers['access_token']
+
+        API_URL = 'https://kapi.kakao.com/v1/user/unlink'
+        headers = {'Authorization': 'Bearer {}'.format(access_token)}
+
+        output=requests.post(API_URL, headers=headers).json()
+        print(output)
+        result=output['id']
+        data = {
+                    "message" : "SUCCESS_UNLINK",
+                    "result" : result
+                    
+            }
+        response = jsonify(data)
+        response.status_code = 200
+        return response
 
 # app.run(host='0.0.0.0',debug=True)
 if __name__ == "__main__":

@@ -51,15 +51,13 @@ class account(Resource):
         try:
             
             code = request.args["code"]            
-            print(code)                        
+                                
             client_id = KAKAO_KEY
             redirect_uri = "http://127.0.0.1:5000/api/v1/user/account"
             
             token_request = requests.get(                                        
                 f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
             )
-
-            print(client_id)
 
             token_json = token_request.json()                                    
 

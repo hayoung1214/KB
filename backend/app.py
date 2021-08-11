@@ -44,10 +44,8 @@ class account(Resource):
     @ns.expect(login_parser)
     @ns.response(201, '카카오 연결 로그인 성공')
     @ns.response(400, 'Bad Request')
-   
 
     def get(self):
-        
     
         try:
             code = request.args["code"]            
@@ -58,9 +56,11 @@ class account(Resource):
             token_request = requests.get(                                        
                 f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
             )
-            
+
+            print(client_id)
+
             token_json = token_request.json()                                    
-            print(token_json)
+
             error = token_json.get("error",None)
 
             if error is not None :
@@ -71,18 +71,19 @@ class account(Resource):
                 response.status_code = 400
                 return response
 
-            access_token = token_json.get("access_token")                        
-            print(access_token)
+            access_token = token_json.get("access_token")  
+
             data = {
                 "message": "SUCCESS_TOKEN",
                 "success": True,
-                "access_token" : access_token
+                "access_token" : access_token,
+                "client_id" : client_id
             }   
+
             response = jsonify(data)
-            response.status_code = 200
-            return redirect(
-                "http://127.0.0.1:5000/api/v1/user/main"
-            )
+            response.status_code = 201
+            return response
+
         except KeyError:
             data = {
                     "message": "INVALID_TOKEN"
@@ -104,16 +105,10 @@ class account(Resource):
 @ns.route('/logout')
 class logout(Resource):
 
-    logout_parser.add_argument(
-        'access_token', required=True, location='json', type=str, help='엑세스 토큰')
-    
-
-    @ns.expect(logout_parser)
     @ns.response(201, '로그아웃 성공')
     @ns.response(400, 'Bad Request')
     
     
-   
     def post(self):
         access_token = request.headers['access_token']
 
@@ -129,8 +124,9 @@ class logout(Resource):
                     
             }
         response = jsonify(data)
-        response.status_code = 200
+        response.status_code = 201
         return response
+
 
 @ns.route('/main')
 class main(Resource):
@@ -143,45 +139,46 @@ class main(Resource):
 class message(Resource):
 
     mupload_parser.add_argument(
-        'message', type=str, required=True, location='json', help="확인하고자하는 메세지")
-
+        'txt_file', type=FileStorage, required=True, location='files', help="텍스트 파일 업로드 성공")
+    
     @ns2.expect(mupload_parser)
-    @ns2.response(201, '메세지 등록 성공')
+    @ns2.response(201, '텍스트 파일 업로드 성공')
     @ns2.response(400, 'Bad Request')
-    @ns2.response(401, '로그인 필요')
+    @ns2.response(401, 'INVALID_USER')
 
     def post(self):
+        try :
+            args = mupload_parser.parse_args()
+            clinet_id = request.headers['client_id']
+            
+            txt_file = args['txt_file']
 
-        args = mupload_parser.parse_args()
-        # id = request.cookies.get('jwt')
 
-        # result = user.find_one({"id": id})  # user table에서 일치하는 아이디 검색
+            if not os.path.exists('upload'):
+                os.makedirs('upload')
 
-        # if result is None:  # 일치하는 아이디가 없음
-        #     data = {
-        #         "message": "로그인 필요"
-        #     }
-        #     response = jsonify(data)
-        #     response.status_code = 401
-        #     return response
+            filename = clinet_id + ".txt"  # 서버 디렉토리에 저장하는 과정 (혹시 몰라서 추가) (example을 access_token 로 바꾸기)
+            txt_file.save('./upload/{0}'.format(secure_filename(filename)))
+            
+            
+            data = {
+                "success": True,
+                "message": "텍스트 파일 업로드 성공",
+            }
+            # 결과 확인 필요 없을 때 주석 풀고 써주기 (result/ 폴더 삭제해주는 기능)
+            #shutil.rmtree('./result/')
 
-        msg = args['message']
-
-        
-        print(msg)
-        
-        data = {
-            "success": True,
-            "message": "메세지 등록 성공",
-        }
-        # 결과 확인 필요 없을 때 주석 풀고 써주기 (result/ 폴더 삭제해주는 기능)
-        #shutil.rmtree('./result/')
-
-        response = jsonify(data)
-        response.status_code = 201
-        return response
-
-        
+            response = jsonify(data)
+            response.status_code = 201
+            return response
+       
+        except KeyError:
+            data = {
+                    "message": "INVALID_USER"
+            }
+            response = jsonify(data)
+            response.status_code = 401
+            return response
 
 # app.run(host='0.0.0.0',debug=True)
 if __name__ == "__main__":

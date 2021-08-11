@@ -17,9 +17,10 @@ ns2 = api.namespace('api/v1/message', description='message 관련 API 목록')
 
 CORS(app, supports_credentials=True)
 
-login_parser = ns.parser()
+
 logout_parser = ns.parser()
 mupload_parser = ns2.parser()
+mdetect_parser = ns2.parser()
 mshow_parser = ns2.parser()
 
 
@@ -41,13 +42,14 @@ class login(Resource):
 @ns.route('/account')
 class account(Resource):
 
-    @ns.expect(login_parser)
+    
     @ns.response(201, '카카오 연결 로그인 성공')
     @ns.response(400, 'Bad Request')
 
     def get(self):
     
         try:
+            
             code = request.args["code"]            
             print(code)                        
             client_id = KAKAO_KEY
@@ -117,10 +119,10 @@ class logout(Resource):
 
         output=requests.post(API_URL, headers=headers).json()
         print(output)
-        result=output['id']
+        id=output['id']
         data = {
                     "message" : "SUCCESS_UNLINK",
-                    "result" : result
+                    "id" : id
                     
             }
         response = jsonify(data)
@@ -136,10 +138,10 @@ class main(Resource):
 
 
 @ns2.route('/upload')
-class message(Resource):
+class upload(Resource):
 
     mupload_parser.add_argument(
-        'txt_file', type=FileStorage, required=True, location='files', help="텍스트 파일 업로드 성공")
+        'txt_file', type=FileStorage, required=True, location='files', help="텍스트 파일")
     
     @ns2.expect(mupload_parser)
     @ns2.response(201, '텍스트 파일 업로드 성공')
@@ -179,6 +181,47 @@ class message(Resource):
             response = jsonify(data)
             response.status_code = 401
             return response
+
+
+@ns2.route('/detect')
+class detect(Resource):
+
+    mdetect_parser.add_argument(
+        'message', type=str, required=True, location='json', help="메세지")
+    
+    @ns2.expect(mdetect_parser)
+    @ns2.response(201, '확인해보고 싶은 메세지 등록 성공')
+    @ns2.response(400, 'Bad Request')
+    @ns2.response(401, 'INVALID_USER')
+
+    def post(self):
+        
+        try :
+            args = mdetect_parser.parse_args()
+            clinet_id = request.headers['client_id']
+            
+            message = args['message']
+            
+            print(message)
+
+            data = {
+                "success": True,
+                "message": "확인해보고 싶은 메세지 등록 성공",
+            }
+
+            response = jsonify(data)
+            response.status_code = 201
+            return response
+       
+        except KeyError:
+            data = {
+                    "message": "INVALID_USER"
+            }
+            response = jsonify(data)
+            response.status_code = 401
+            return response
+
+
 
 # app.run(host='0.0.0.0',debug=True)
 if __name__ == "__main__":

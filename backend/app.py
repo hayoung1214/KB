@@ -8,6 +8,7 @@ from flask_cors import CORS
 from kakaokey import KAKAO_KEY 
 import requests, os, datetime
 from werkzeug.datastructures import FileStorage
+from utils.extract_word_2 import extract_txt
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='KB API',
@@ -167,6 +168,8 @@ class upload(Resource):
             filename = clinet_id + ".txt"  # 서버 디렉토리에 저장하는 과정 (혹시 몰라서 추가) (example을 access_token 로 바꾸기)
             txt_file.save('./upload/{0}'.format(secure_filename(filename)))
             
+            result = extract_txt(clinet_id)
+            #print(result)
             
             data = {
                 "success": True,

@@ -113,12 +113,19 @@ class logout(Resource):
     
     def post(self):
         access_token = request.headers['access_token']
+        client_id = KAKAO_KEY
 
         API_URL = 'https://kapi.kakao.com/v1/user/unlink'
+        Logout_Redirect_URI ="https://naver.com"
         headers = {'Authorization': 'Bearer {}'.format(access_token)}
 
         output=requests.post(API_URL, headers=headers).json()
-        print(output)
+        logout_request = requests.get(                                        
+                f"https://kauth.kakao.com/oauth/logout?client_id={client_id}&logout_redirect_uri={Logout_Redirect_URI}"
+            )
+        
+    
+      
         id=output['id']
         data = {
                     "message" : "SUCCESS_UNLINK",

@@ -36,7 +36,6 @@ app.get('/', function (req, res) {
 
 //main page
 app.get('/main', function (req, res) {
-    
     res.render('main.html');
     
 });

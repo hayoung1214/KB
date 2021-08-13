@@ -29,9 +29,6 @@ mshow_parser = ns2.parser()
 @ns.route('/login')
 class login(Resource):
 
-    def get(self):
-        return render_template('login.html')
-
     def post(self):
         client_id = KAKAO_KEY
         redirect_uri = "http://127.0.0.1:5000/api/v1/user/account"
@@ -136,11 +133,6 @@ class logout(Resource):
         return response
 
 
-@ns.route('/main')
-class main(Resource):
-
-    def get(self):
-        return render_template('main.html')
 
 
 @ns2.route('/upload')

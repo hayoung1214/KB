@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({extended : false}));
 
 
 app.get('/', function (req, res) {
+    
         res.redirect('/main');
 
 });

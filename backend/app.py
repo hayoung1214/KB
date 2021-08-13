@@ -32,15 +32,17 @@ class login(Resource):
     def post(self):
         client_id = KAKAO_KEY
         redirect_uri = "http://127.0.0.1:5000/api/v1/user/account"
-        return redirect(
+        
+        redirect(
             f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
         )
+        
+       
     
 
 @ns.route('/account')
 class account(Resource):
 
-    
     @ns.response(201, '카카오 연결 로그인 성공')
     @ns.response(400, 'Bad Request')
 
@@ -51,12 +53,12 @@ class account(Resource):
             code = request.args["code"]            
                                 
             client_id = KAKAO_KEY
-            redirect_uri = "http://127.0.0.1:5000/api/v1/user/account"
+            redirect_uri = "http://127.0.0.1:3000/login"
             
             token_request = requests.get(                                        
                 f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
             )
-
+            print("code : ",code )
             token_json = token_request.json()                                    
 
             error = token_json.get("error",None)
@@ -70,7 +72,7 @@ class account(Resource):
                 return response
 
             access_token = token_json.get("access_token")  
-
+            print("access_token : ",access_token )
             data = {
                 "message": "SUCCESS_TOKEN",
                 "success": True,

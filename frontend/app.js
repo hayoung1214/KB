@@ -36,30 +36,67 @@ app.get('/', function (req, res) {
 
 });
 
-//로그인 페이지 (앱을 키면 가장 먼저 보이는 화면)
-//로그인 GET
+//main page
 app.get('/main', function (req, res) {
-    //if(!req.session.name)
-        res.render('main.html');
-    // else  
-    //     res.redirect('/pre_user_main');
+    
+    res.render('main.html');
+    
+});
 
- });
 
+//login page
 app.get('/login', function (req, res) {
-    //if(!req.session.name)
-        res.render('login.html');
-    // else  
-    //     res.redirect('/pre_user_main');
+    
+    res.render('login.html');
 
- });
+});
  
+app.post('/login', async function (req, res) {
+    console.log("try login")
+    try{
+        
+        data=0
+        const test_result = await axios.post('http://127.0.0.1:5000/api/v1/user/login')
+        console.log(test_result)
+        
+        
+        console.log(test_result);
+    
+        
+        
+               
+    }catch(e){console.log("[ERROR|success login] : ",e)}
+    
 
+});
 
+//logout page
+app.get('/logout',async function(req,res){
+    try{
+        
+        var test_result =  await axios.post('http://127.0.0.1:5000/api/v1/user/logout', {
+            
+            headers: { 'access_token': '1234', 'Content-Type': 'application/json' }
+            
+        });
+            
+        //res.end();  //클라이언트에게 응답을 전송한다
+        
 
+        console.log("post image to pre_test")
+        console.log(test_result)
+        console.log(test_result.status)
+        console.log(test_result.data)
+        
+        if(test_result.status == 200){
+            test_result_responsedata = test_result.data
+            console.log("ssssssssssss")
+            console.log(test_result_responsedata)
+            
+        }
+        res.json(test_result.data)       
+    }catch(e){console.log("[ERROR|success pass pre_test error] : ",e)}
 
-app.get('/logout',function(req,res){//로그아웃기능
-    	
 	res.redirect("/main");
 });
 

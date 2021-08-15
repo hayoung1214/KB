@@ -91,7 +91,7 @@ class detect(Resource):
         
         try :
             args = mdetect_parser.parse_args()
-            clinet_id = request.headers['client_id']
+            # clinet_id = request.headers['client_id'] 회원가입 기능 추가한다면 넣기
             
             message = args['message']
             

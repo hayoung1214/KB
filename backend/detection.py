@@ -130,9 +130,9 @@ train_dataloader
 #2. 경로 지정
 model_path='ko_model'
 
-torch.save(model, model_path)
-# model = torch.load(model_path)
-# model.eval()
+# torch.save(model, model_path)
+# # model = torch.load(model_path)
+# # model.eval()
 print("model save")
 
 #토큰화
@@ -140,6 +140,7 @@ tokenizer = get_tokenizer()
 tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 
 def predict(predict_sentence):
+    
     model_save = torch.load(model_path)
     model_save.eval()
     data = [predict_sentence, '0']

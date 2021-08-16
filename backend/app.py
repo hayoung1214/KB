@@ -9,6 +9,7 @@ from kakaokey import KAKAO_KEY
 import requests, os, datetime
 from werkzeug.datastructures import FileStorage
 from utils.extract_word_2 import extract_txt
+from detection import predict
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='KB API',
@@ -96,13 +97,16 @@ class detect(Resource):
             
             message = args['message']
             
-            print(message)
+            print("message : ", message)
             
             # 모델 넘기는 부분 추가하기
-
+            result = predict(message)
+            print("result : ", result)
+            
             data = {
                 "success": True,
                 "message": "확인해보고 싶은 메세지 등록 성공",
+                "result" : result
             }
 
             response = jsonify(data)

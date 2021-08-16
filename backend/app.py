@@ -54,7 +54,8 @@ class upload(Resource):
             txt_file.save('./upload/{0}'.format(secure_filename(filename)))
             
             result = extract_txt(clinet_id)
-            #print(result)
+
+            
             
             data = {
                 "success": True,
@@ -96,6 +97,8 @@ class detect(Resource):
             message = args['message']
             
             print(message)
+            
+            # 모델 넘기는 부분 추가하기
 
             data = {
                 "success": True,

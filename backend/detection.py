@@ -23,7 +23,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 bertmodel, vocab = get_pytorch_kobert_model()
 
 #1.경로 지정
-chatbot_data = pd.read_excel('3_class_kobert_data.xlsx')
+chatbot_data = pd.read_excel('3_1_class_kobert_data.xlsx')
 
 data_list = []
 for q, label in zip(chatbot_data['text'], chatbot_data['label'])  :
@@ -57,7 +57,7 @@ class BERTDataset(Dataset):
 max_len = 64
 batch_size = 64
 warmup_ratio = 0.1
-num_epochs = 10
+num_epochs = 15
 max_grad_norm = 1
 log_interval = 200
 learning_rate =  5e-5
@@ -128,7 +128,7 @@ def calc_accuracy(X,Y):
 train_dataloader
 
 #2. 경로 지정
-model_path='3class_kobert_model'
+model_path='3_1_class_kobert_model'
 
 # torch.save(model, model_path)
 # # model = torch.load(model_path)
@@ -140,8 +140,7 @@ tokenizer = get_tokenizer()
 tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 
 def predict(predict_sentence):
-    
-    model_save = torch.load(model_path)
+    model_save = torch.load(model_path, map_location=device)
     model_save.eval()
     data = [predict_sentence, '0']
     dataset_another = [data]
@@ -165,13 +164,14 @@ def predict(predict_sentence):
         for i in out:
             logits=i
             logits = logits.detach().cpu().numpy()
-
+           
             if np.argmax(logits) == 0:
                 test_eval.append("지인 사칭")
             elif np.argmax(logits) == 1:
                 test_eval.append("기관 사칭")
             elif np.argmax(logits) == 2:
                 test_eval.append("정상 말투")
+               
                
         return test_eval[0]
         # print(">> 입력하신 내용에서 " + test_eval[0] + " 느껴집니다.")

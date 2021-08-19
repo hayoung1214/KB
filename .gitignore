@@ -1,8 +1,4 @@
 __pycache__
 venv/
-kakaokey.py
-upload/
-result/
-3_class_kobert_data.xlsx
-3class_kobert_model
-KoBERT
+3_1_class_kobert_data.xlsx
+3_1_class_kobert_model

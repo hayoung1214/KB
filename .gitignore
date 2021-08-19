@@ -3,6 +3,6 @@ venv/
 kakaokey.py
 upload/
 result/
-2_kobert_dataset.xlsx
-ko_model
+3_class_kobert_data.xlsx
+3class_kobert_model
 KoBERT

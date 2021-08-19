@@ -23,7 +23,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 bertmodel, vocab = get_pytorch_kobert_model()
 
 #1.경로 지정
-chatbot_data = pd.read_excel('2_kobert_dataset.xlsx')
+chatbot_data = pd.read_excel('3_class_kobert_data.xlsx')
 
 data_list = []
 for q, label in zip(chatbot_data['text'], chatbot_data['label'])  :
@@ -128,7 +128,7 @@ def calc_accuracy(X,Y):
 train_dataloader
 
 #2. 경로 지정
-model_path='ko_model'
+model_path='3class_kobert_model'
 
 # torch.save(model, model_path)
 # # model = torch.load(model_path)
@@ -167,9 +167,9 @@ def predict(predict_sentence):
             logits = logits.detach().cpu().numpy()
 
             if np.argmax(logits) == 0:
-                test_eval.append("폰 고장")
+                test_eval.append("지인 사칭")
             elif np.argmax(logits) == 1:
-                test_eval.append("돈 보내줌")
+                test_eval.append("기관 사칭")
             elif np.argmax(logits) == 2:
                 test_eval.append("정상 말투")
                

@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 # from bson import json, json_util
 from flask_restx import Resource, Api, fields, reqparse
 from flask_cors import CORS
-from kakaokey import KAKAO_KEY 
 import os
 from werkzeug.datastructures import FileStorage
 from detection import predict
@@ -15,27 +14,22 @@ import torch
 app = Flask(__name__)
 api = Api(app, version='1.0', title='KB API',
           description='KB REST API 문서')
-ns = api.namespace('api/v1/user', description='user 관련 API 목록')
-ns2 = api.namespace('api/v1/message', description='message 관련 API 목록')
+ns = api.namespace('api/v1/message', description='message 관련 API 목록')
 
 CORS(app, supports_credentials=True)
 
+mdetect_parser = ns.parser()
 
-logout_parser = ns.parser()
-mdetect_parser = ns2.parser()
-mshow_parser = ns2.parser()
-
-
-@ns2.route('/detect')
+@ns.route('/detect')
 class detect(Resource):
 
     mdetect_parser.add_argument(
         'message', type=str, required=True, location='json', help="메세지")
     
-    @ns2.expect(mdetect_parser)
-    @ns2.response(201, '확인해보고 싶은 메세지 등록 성공')
-    @ns2.response(400, 'Bad Request')
-    @ns2.response(401, 'INVALID_USER')
+    @ns.expect(mdetect_parser)
+    @ns.response(201, '확인해보고 싶은 메세지 등록 성공')
+    @ns.response(400, 'Bad Request')
+    @ns.response(401, 'INVALID_USER')
 
     def post(self):
         

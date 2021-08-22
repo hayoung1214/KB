@@ -9,4 +9,4 @@ pandas
 tqdm
 sentencepiece
 transformers==3.0.2
-torch
+#torch

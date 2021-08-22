@@ -98,4 +98,4 @@ class detect(Resource):
 if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run(host='0.0.0.0', debug=True)
-# gunicorn --bind 0.0.0.0:5000 wsgi:app
+# gunicorn --bind 0.0.0.0:5000 wsgi:app 으로 gunicorn 실행/home/ubuntu/KB/backend

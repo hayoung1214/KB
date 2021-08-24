@@ -42,8 +42,8 @@ class detect(Resource):
             print("message : ", message)
             
             # 모델 넘기는 부분 추가하기
-            #result = predict(message)
-            #print("result : ", result)
+            result = predict(message)
+            print("result : ", result)
             
             data = {
                 "success": True,

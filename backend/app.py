@@ -2,7 +2,6 @@
 
 from flask import Flask, jsonify, request
 from werkzeug.utils import secure_filename
-# from bson import json, json_util
 from flask_restx import Resource, Api, fields, reqparse
 from flask_cors import CORS
 import os
@@ -35,13 +34,12 @@ class detect(Resource):
         
         try :
             args = mdetect_parser.parse_args()
-            # clinet_id = request.headers['client_id'] 회원가입 기능 추가한다면 넣기
             
             message = args['message']
             
             print("message : ", message)
             
-            # 모델 넘기는 부분 추가하기
+            # 모델 넘기는 부분 
             result = predict(message)
             print("result : ", result)
             
@@ -67,7 +65,7 @@ class BERTClassifier(nn.Module):
     def __init__(self,
                  bert,
                  hidden_size = 768,
-                 num_classes=3,   ##클래스 수 조정##
+                 num_classes=3, 
                  dr_rate=None,
                  params=None):
         super(BERTClassifier, self).__init__()
@@ -93,9 +91,7 @@ class BERTClassifier(nn.Module):
         return self.classifier(out)
 
 
-
-# app.run(host='0.0.0.0',debug=True)
 if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run(host='0.0.0.0', debug=True)
-# gunicorn --bind 0.0.0.0:5000 wsgi:app 으로 gunicorn 실행/home/ubuntu/KB/backend
+# gunicorn --bind 0.0.0.0:5000 wsgi:app 으로 gunicorn 실행

@@ -133,7 +133,6 @@ model_path='3_1_class_kobert_model'
 # torch.save(model, model_path)
 # # model = torch.load(model_path)
 # # model.eval()
-print("model save")
 
 #토큰화
 tokenizer = get_tokenizer()

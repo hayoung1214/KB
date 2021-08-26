@@ -9,4 +9,12 @@ pandas
 tqdm
 sentencepiece
 transformers==3.0.2
-torch
+gluonnlp
+tqdm
+mxnet
+pandas
+transformers
+sentencepiece
+openpyxl
+sklearn
+#torch

@@ -11,8 +11,8 @@ from torch import nn
 import torch
 
 app = Flask(__name__)
-api = Api(app, version='1.0', title='KB API',
-          description='KB REST API 문서')
+api = Api(app, version='1.0', title='KaptureBee API',
+          description='KaptureBee REST API 문서')
 ns = api.namespace('api/v1/message', description='message 관련 API 목록')
 
 CORS(app, supports_credentials=True)

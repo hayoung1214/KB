@@ -23,7 +23,7 @@
 
 [KaptureBee Swagger Hub link](https://app.swaggerhub.com/apis/hayoung1214/KaptureBee_API/1.0)
 
-<p align="center">
+<p >
 <img alt="swagger" src="https://user-images.githubusercontent.com/55429156/130923753-1a6d8cdf-1a19-466c-893e-76ed645b76fa.PNG">
 </p>
 

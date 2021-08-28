@@ -128,11 +128,7 @@ def calc_accuracy(X,Y):
 train_dataloader
 
 #2. 경로 지정
-model_path='3_1_class_kobert_model'
-
-# torch.save(model, model_path)
-# # model = torch.load(model_path)
-# # model.eval()
+model_path='final_kobert_model'
 
 #토큰화
 tokenizer = get_tokenizer()
@@ -170,7 +166,6 @@ def predict(predict_sentence):
                 test_eval.append("기관 사칭")
             elif np.argmax(logits) == 2:
                 test_eval.append("정상 말투")
-               
-               
+                    
         return test_eval[0]
-        # print(">> 입력하신 내용에서 " + test_eval[0] + " 느껴집니다.")
+      

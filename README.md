@@ -6,7 +6,7 @@
 
 - 구현 결과
 <p align="center">
- <img width="300" alt="quizmaker_imageupload" src="https://user-images.githubusercontent.com/55429156/130920607-b92125d4-ab59-4c57-88cd-34727d6bdfc2.gif">
+ <img width="300"  src="https://user-images.githubusercontent.com/55429156/130920607-b92125d4-ab59-4c57-88cd-34727d6bdfc2.gif">
  </p>
 
 <br>

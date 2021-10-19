@@ -1,6 +1,6 @@
 # **KaptureBee**🐝
 
-- KoBERT 모델을 사용하여 텍스트의 문맥을 파악하여 메신저 피싱 여부를 검출해주는 서비스 
+- KB-ALBERT 모델을 활용한 실시간 메신저 피싱 탐지 서비스
 
 
 
@@ -14,7 +14,7 @@
 ## **📍 System Architecture**
 
 <p align="center">  
-  <img src="https://user-images.githubusercontent.com/55429156/130922015-ddaae96f-bc51-48db-b9b8-9c1bda75bfc6.PNG">
+  <img src="https://user-images.githubusercontent.com/55429156/137872196-ecd6566f-7981-4a14-b032-051a11235c30.png">
 </p>
 
 <br>
@@ -36,14 +36,20 @@
 <img alt="flow" src="https://user-images.githubusercontent.com/55429156/131211170-72435818-b846-4d27-8081-159b1ecc96ac.PNG">
 </p>
 
-
 <p align="center">
-<img alt="flow" src="https://user-images.githubusercontent.com/55429156/131211192-59410876-5cb9-4b1f-829d-93574fd43438.PNG">
+<img alt="flow" src="https://user-images.githubusercontent.com/55429156/137872389-c5f17364-bc38-47ef-bf83-a7841ab0e705.png">
 </p>
+
+
 
 - 딥러닝 모델 학습
 <p align="center">
-<img alt="flow" src="https://user-images.githubusercontent.com/55429156/131211193-ef131ff3-ccf3-4552-bca3-dbdcda29893c.PNG">
+<img alt="flow" src="https://user-images.githubusercontent.com/55429156/137873051-28a2e89f-9ffa-45e9-acf9-e2bb2f421dc5.png">
+</p>
+
+- 검출 가능한 메신저 피싱 종류
+<p align="center">
+<img alt="flow" src="https://user-images.githubusercontent.com/55429156/137873065-b5f487e4-935e-461a-9776-5dafee8869b3.png">
 </p>
 
 <br>

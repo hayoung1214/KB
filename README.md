@@ -33,7 +33,7 @@
 - 데이터 셋 구성
 
 <p align="center">
-<img alt="flow" src="https://user-images.githubusercontent.com/55429156/131211170-72435818-b846-4d27-8081-159b1ecc96ac.PNG">
+<img alt="flow" src="https://user-images.githubusercontent.com/55429156/137873615-83d1e09a-8af5-4c28-bc70-ea819efff239.png">
 </p>
 
 <p align="center">

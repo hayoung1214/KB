@@ -32,12 +32,12 @@
 ## **📍 AI**
 - 데이터 셋 구성
 
-<p align="center">
-<img width="1000" alt="flow" src="https://user-images.githubusercontent.com/55429156/137873615-83d1e09a-8af5-4c28-bc70-ea819efff239.png">
+<p align="left">
+<img width="500" alt="flow" src="https://user-images.githubusercontent.com/55429156/137873615-83d1e09a-8af5-4c28-bc70-ea819efff239.png">
 </p>
 <br>
-<p align="center">
-<img width="1000" alt="flow" src="https://user-images.githubusercontent.com/55429156/137872389-c5f17364-bc38-47ef-bf83-a7841ab0e705.png">
+<p align="right">
+<img width="300" alt="flow" src="https://user-images.githubusercontent.com/55429156/137872389-c5f17364-bc38-47ef-bf83-a7841ab0e705.png">
 </p>
 <br>
 <br>

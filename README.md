@@ -33,11 +33,11 @@
 - 데이터 셋 구성
 
 <p align="center">
-<img width="300" alt="flow" src="https://user-images.githubusercontent.com/55429156/137873615-83d1e09a-8af5-4c28-bc70-ea819efff239.png">
+<img width="1000" alt="flow" src="https://user-images.githubusercontent.com/55429156/137873615-83d1e09a-8af5-4c28-bc70-ea819efff239.png">
 </p>
 <br>
 <p align="center">
-<img width="300" alt="flow" src="https://user-images.githubusercontent.com/55429156/137872389-c5f17364-bc38-47ef-bf83-a7841ab0e705.png">
+<img width="1000" alt="flow" src="https://user-images.githubusercontent.com/55429156/137872389-c5f17364-bc38-47ef-bf83-a7841ab0e705.png">
 </p>
 <br>
 <br>
@@ -62,5 +62,5 @@
 | 이름       | 개발 분야                          | 소개 페이지                                         |
 | ------------------------------- | -------------------------------------------- | -------------------------------------------------- |
 | 장이제 |         알고리즘 개발                      | [개인 리포로 이동](https://github.com/yds04312)  |
-| 이하영   |           프론트엔드 & 백엔드 개발              | [개인 리포로 이동](https://github.com/hayoung1214) |
+| 이하영   |           엔드 & 프론트엔드 개발              | [개인 리포로 이동](https://github.com/hayoung1214) |
 

@@ -32,24 +32,24 @@
 ## **📍 AI**
 - 데이터 셋 구성
 
-<p align="left">
-<img width="500" alt="flow" src="https://user-images.githubusercontent.com/55429156/137873615-83d1e09a-8af5-4c28-bc70-ea819efff239.png">
+<p align="center">
+<img width="700" alt="flow" src="https://user-images.githubusercontent.com/55429156/137873615-83d1e09a-8af5-4c28-bc70-ea819efff239.png">
 </p>
 <br>
-<p align="right">
-<img width="300" alt="flow" src="https://user-images.githubusercontent.com/55429156/137872389-c5f17364-bc38-47ef-bf83-a7841ab0e705.png">
+<p align="center">
+<img width="700" alt="flow" src="https://user-images.githubusercontent.com/55429156/137872389-c5f17364-bc38-47ef-bf83-a7841ab0e705.png">
 </p>
 <br>
 <br>
 
 - 딥러닝 모델 학습
 <p align="center">
-<img alt="flow" src="https://user-images.githubusercontent.com/55429156/137873051-28a2e89f-9ffa-45e9-acf9-e2bb2f421dc5.png">
+<img width="700" alt="flow" src="https://user-images.githubusercontent.com/55429156/137873051-28a2e89f-9ffa-45e9-acf9-e2bb2f421dc5.png">
 </p>
 <br>
 - 검출 가능한 메신저 피싱 종류
 <p align="center">
-<img alt="flow" src="https://user-images.githubusercontent.com/55429156/137873065-b5f487e4-935e-461a-9776-5dafee8869b3.png">
+<img width="700"  alt="flow" src="https://user-images.githubusercontent.com/55429156/137873065-b5f487e4-935e-461a-9776-5dafee8869b3.png">
 </p>
 
 <br>
